@@ -71,6 +71,7 @@ ARG CONFIG="\
 		--add-module=/usr/src/ngx_brotli \
 		--add-module=/usr/src/headers-more-nginx-module-$HEADERS_MORE_VERSION \
 		--add-module=/usr/src/njs/nginx \
+		--add-module=/usr/src/nginx-upstream-dynamic-servers \
 		--add-dynamic-module=/usr/src/ngx_http_geoip2_module \
 	"
 
@@ -165,6 +166,9 @@ RUN \
   && make njs \
   && mv /usr/src/njs/build/njs /usr/sbin/njs \
   && echo "njs v$(njs -v)"
+
+RUN cd /usr/src \
+  && git clone https://github.com/GUI/nginx-upstream-dynamic-servers.git
 
 RUN \
   echo "Building nginx ..." \
